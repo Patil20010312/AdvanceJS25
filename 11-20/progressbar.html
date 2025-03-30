@@ -1,0 +1,41 @@
+<!DOCTYPE html><html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulated Progress Bar</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        .progress-container { width: 100%; background: #ccc; border-radius: 5px; overflow: hidden; margin: 20px auto; width: 80%; height: 30px; }
+        .progress-bar { width: 0; height: 100%; background: green; text-align: center; line-height: 30px; color: white; }
+        button { margin-top: 20px; padding: 10px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>Simulated Progress Bar</h1>
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar">0%</div>
+    </div>
+    <button onclick="startProgress()">Start</button><script>
+    let progress = 0;
+    let interval;
+
+    function startProgress() {
+        if (interval) return; // Prevent multiple intervals
+        progress = 0;
+        const progressBar = document.getElementById("progressBar");
+        
+        interval = setInterval(() => {
+            if (progress >= 100) {
+                clearInterval(interval);
+                interval = null;
+                return;
+            }
+            progress += 2;
+            progressBar.style.width = progress + "%";
+            progressBar.innerText = progress + "%";
+        }, 100);
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html><html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown Timer</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        #timer { font-size: 24px; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Event Countdown</h1>
+    <input type="datetime-local" id="eventTime">
+    <button onclick="startCountdown()">Start Countdown</button>
+    <div id="timer"></div><script>
+    let countdown;
+
+    function startCountdown() {
+        if (countdown) clearInterval(countdown);
+        const eventTime = new Date(document.getElementById("eventTime").value).getTime();
+        
+        countdown = setInterval(() => {
+            const now = new Date().getTime();
+            const timeLeft = eventTime - now;
+            
+            if (timeLeft <= 0) {
+                clearInterval(countdown);
+                document.getElementById("timer").innerHTML = "Time's up!";
+                return;
+            }
+
+            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+            document.getElementById("timer").innerHTML = 
+                `${days}d ${hours}h ${minutes}m ${seconds}s`;
+        }, 1000);
+    }
+</script>
+
+</body>
+</html>

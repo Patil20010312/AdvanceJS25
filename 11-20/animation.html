@@ -1,0 +1,51 @@
+<!DOCTYPE html><html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animation with setInterval</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        .container { position: relative; width: 100%; height: 200px; border: 1px solid black; overflow: hidden; }
+        .box { width: 50px; height: 50px; background-color: red; position: absolute; left: 0; top: 50%; transform: translateY(-50%); }
+        button { margin: 10px; padding: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Animated Box</h1>
+    <div class="container">
+        <div class="box" id="box"></div>
+    </div>
+    <button onclick="startAnimation()">Start</button>
+    <button onclick="stopAnimation()">Stop</button>
+    <button onclick="resetAnimation()">Reset</button><script>
+    let position = 0;
+    let interval;
+    const box = document.getElementById("box");
+
+    function startAnimation() {
+        if (interval) return;
+        interval = setInterval(() => {
+            if (position >= window.innerWidth - 60) {
+                clearInterval(interval);
+                interval = null;
+                return;
+            }
+            position += 5;
+            box.style.left = position + "px";
+        }, 30);
+    }
+
+    function stopAnimation() {
+        clearInterval(interval);
+        interval = null;
+    }
+
+    function resetAnimation() {
+        stopAnimation();
+        position = 0;
+        box.style.left = "0px";
+    }
+</script>
+
+</body>
+</html>

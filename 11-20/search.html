@@ -1,0 +1,38 @@
+<!DOCTYPE html><html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debounced Search</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        #results { margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Search with Debounce</h1>
+    <input type="text" id="searchInput" placeholder="Type to search...">
+    <div id="results"></div><script>
+    let debounceTimeout;
+
+    function fetchResults(query) {
+        if (!query) {
+            document.getElementById("results").innerHTML = "";
+            return;
+        }
+        document.getElementById("results").innerHTML = `Searching for "${query}"...`;
+        
+        setTimeout(() => {
+            document.getElementById("results").innerHTML = `Results for "${query}"`;
+        }, 1000); 
+    }
+
+    document.getElementById("searchInput").addEventListener("input", function () {
+        clearTimeout(debounceTimeout);
+        debounceTimeout = setTimeout(() => {
+            fetchResults(this.value);
+        }, 500);
+    });
+</script>
+
+</body>
+</html>
